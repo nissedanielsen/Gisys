@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <!-- Bootstrap CSS 4.3.1 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- VueJS -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+  <p id="demo"></p>
+
+
+  <div class="container mt-4" id="app">
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Salery</th>
+          <th scope="col">Age</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-for="(user, index) in users">
+          <td>{{user.id}}</td>
+          <td>{{user.employee_name}}</td>
+          <td>{{user.employee_salary}}</td>
+          <td>{{user.employee_age}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        users: []
+      },
+      mounted: function () {
+        axios.get('http://dummy.restapiexample.com/api/v1/employees')
+        
+          .then(response => {
+            this.users = response.data.data;
+            console.log(response);
+            console.log(response.status);
+            console.log(response.data);
+            console.log(response.data.data);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    })
+  </script>
+
+</body>
+
+</html>
